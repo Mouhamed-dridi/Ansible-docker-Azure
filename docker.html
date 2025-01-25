@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>requirement</title>
+<title>docker</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -45,17 +45,13 @@ body {font-size:16px;}
 
   <!-- Header -->
   <div class="w3-container" style="margin-top:80px" id="showcase">
-    <h1 class="w3-jumbo"><b>Project Requirements</b></h1>
-    <h1 class="w3-xxxlarge w3-text-red"><b>Overview</b></h1>
-   
-
+    <h1 class="w3-jumbo"><b>Overview of Docker</b></h1>
   </div>
   
   <!-- Photo grid (modal) -->
   <div class="w3-row-padding">
     <div class="w3-half">
-     <p>This project uses a combination of powerful tools to create a scalable system. We'll set up a Linux Virtual Machine (VM) for development and testing, then deploy Docker to containerize our applications. Azure will host the system in the cloud, while Ansible automates the configuration and deployment processes. A web app will be tested within this environment, and Uptime Kuma will monitor the system’s performance to ensure reliability.</p>
-    </div>
+     <p> 
 <br>
     
   </div>
@@ -71,68 +67,46 @@ body {font-size:16px;}
 
   <!-- Services -->
   <div class="w3-container" id="services" style="margin-top:75px">
-    <h1 class="w3-xxxlarge w3-text-red"><b>Tools </b></h1>
+
     <hr style="width:50px;border:5px solid red" class="w3-round">
-    <ul style="list-style: none; padding: 0; font-size: 18px;">
-      <li style="margin-bottom: 10px;">
-        🖥️ <strong>VM Technology:</strong> Set up a Linux-based VM for development and testing.
-      </li>
-      <li style="margin-bottom: 10px;">
-        ☁️ <strong>Cloud Technology:</strong> Deploy the project on <strong>Azure</strong> for scalable cloud hosting and management.
-      </li>
-      <li style="margin-bottom: 10px;">
-        🐳 <strong>Docker Technology:</strong> Use <strong>Docker</strong> to containerize applications for consistency and portability across environments.
-      </li>
-      <li style="margin-bottom: 10px;">
-        🖱️ <strong>Bash Scripting:</strong> Write <strong>Bash scripts</strong> to automate and simplify manual tasks and system configurations.
-      </li>
-      <li style="margin-bottom: 10px;">
-        ⚙️ <strong>Ansible for Automation:</strong> Use <strong>Ansible</strong> to automate system configurations and ensure consistency in deployments.
-      </li>
-      <li style="margin-bottom: 10px;">
-        🌐 <strong>Web App for Testing:</strong> Develop and deploy a <strong>web app</strong> to test the system’s functionality and interaction.
-      </li>
-      <li style="margin-bottom: 10px;">
-        📊 <strong>Monitoring Tool (Uptime Kuma):</strong> Set up <strong>Uptime Kuma</strong> for real-time monitoring to track the availability and performance of the system.
-      </li>
+     
+    
+    
+ 
+    <h1>Docker Overview</h1>
+    <p>Docker is a platform for developing, shipping, and running applications inside lightweight, portable containers. Containers bundle the software and its dependencies, ensuring it works uniformly across different environments.</p>
+    
+    <h2>How to Create a Simple Docker Project</h2>
+    <p>To create a simple Docker project, follow these steps:</p>
+    <ul>
+        <li>Install Docker on your machine.</li>
+        <li>Create a Dockerfile with your application instructions.</li>
+        <li>Build the Docker image using <code>docker build -t myapp .</code></li>
+        <li>Run the container using <code>docker run -d -p 80:80 myapp</code></li>
     </ul>
-    
-    
-    
-    
-  </div>
-  
-  <!-- Designers -->
 
+    <h2>Installing and Preconfiguring Docker</h2>
+    <p>To install Docker, follow these steps:</p>
+    <ul>
+        <li>Download Docker from the official website.</li>
+        <li>Install it by following the provided instructions.</li>
+        <li>Verify the installation with <code>docker --version</code></li>
+    </ul>
 
-  <!-- The Team -->
+    <h2>What is Docker Hub?</h2>
+    <p>Docker Hub is a cloud-based registry service for sharing container images. It allows developers to store, share, and manage containerized applications. You can find official images or upload your own by pushing to Docker Hub.</p>
 
-
-  <!-- Packages / Pricing Tables -->
-
-
-
-  
-  <!-- Contact -->
-  <div class="w3-container" id="contact" style="margin-top:75px; text-align: center;">
-  
-    <h1 class="w3-xxxlarge w3-text-red"><b>Ron Jeffries</b></h1>
-  
-    
-    <!-- Owner's Image -->
-    
-    
-    <!-- Simple Description -->
-    <p>" "Code never lies, comments sometimes do."  "</p>
-    
-    <!-- Call to Action for More Details -->
+    <h2>Running the Hello World Container</h2>
+    <p>You can test your Docker installation by running the Hello World container:</p>
+    <ul>
+        <li>Open a terminal and run <code>docker run hello-world</code></li>
+        <li>If Docker is installed correctly, it will pull the Hello World image and display a welcome message.</li>
+    </ul>
+    <br>
+    <p>In this project, we have a pre-configured bash script that installs Docker and a ready Docker file.</p>
 
   </div>
   
-  
-
-<!-- End page content -->
-</div>
 
 <!-- W3.CSS Container -->
 <div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">X</a></p></div>

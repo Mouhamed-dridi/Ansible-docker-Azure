@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>ansible</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+body {font-size:16px;}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+</style>
+</head>
+<body>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+  <div class="w3-container">
+    <h3 class="w3-padding-64"><b>Deply Ansible<br>Docker</b></h3>
+  </div>
+  <div class="w3-bar-block">
+    <a href="index.html"  class="w3-bar-item w3-button w3-hover-white">Home</a> 
+    <a href="Prequest.html"  class="w3-bar-item w3-button w3-hover-white">Prerequisites</a> 
+    <a href="install.html" class="w3-bar-item w3-button w3-hover-white">install</a> 
+    <a href="ansible playbook.html"  class="w3-bar-item w3-button w3-hover-white">Ansible-Playbook</a> 
+    <a href="docker.html"  class="w3-bar-item w3-button w3-hover-white">Docker</a> 
+    <a href="contact.html"  class="w3-bar-item w3-button w3-hover-white">Contact</a>
+  </div>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+  <span>Company Name</span>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+
+  
+  
+
+  <!-- Modal for full size images on click-->
+  <div id="modal01" class="w3-modal w3-black" style="padding-top:0" onclick="this.style.display='none'">
+    <span class="w3-button w3-black w3-xxlarge w3-display-topright">×</span>
+    <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64">
+      <img id="img01" class="w3-image">
+      <p id="caption"></p>
+    </div>
+  </div>
+
+  <!-- Services -->
+  <div class="w3-container" id="services" style="margin-top:75px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Ansible Playbook Guide</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    
+    <h2>What is an Ansible Playbook?</h2>
+    <p>An Ansible playbook is a configuration management tool used for automating tasks on remote machines. It is a YAML file that defines a series of tasks to be executed on a target server. Playbooks are used to deploy applications, set up servers, and automate system administration tasks.</p>
+  
+    <h3>Main Concepts & Architecture</h3>
+    <p>Ansible playbooks are composed of a series of plays, each targeting specific hosts (or groups of hosts). Each play includes tasks that perform specific actions on the remote system.</p>
+    
+    <p>The key components of an Ansible playbook include:</p>
+    <ul style="text-align: left; margin-left: 20px;">
+      <li><strong>Hosts:</strong> The servers or machines to execute the tasks on.</li>
+      <li><strong>Tasks:</strong> The individual operations to be performed on the hosts (such as installing packages, configuring services, etc.).</li>
+      <li><strong>Roles:</strong> Grouping of related tasks, which helps structure the playbook into reusable components.</li>
+      <li><strong>Modules:</strong> Pre-built actions (e.g., installing a package, copying files) that Ansible uses to perform tasks.</li>
+      <li><strong>Variables:</strong> Allow customization and dynamic configuration within the playbook.</li>
+    </ul>
+  
+    <h3>How Ansible Works</h3>
+    <p>When you run an Ansible playbook, Ansible connects to the target machines via SSH (or WinRM for Windows) and executes the tasks defined in the playbook. It does not require an agent on the target system, making it agentless and easy to manage.</p>
+  
+    <h3>Using Ansible Playbook to Add a User to the Docker Group</h3>
+    <p>In this guide, we will walk through an example Ansible playbook that adds a user to the Docker group on a server. This is a common task to give the user permissions to interact with Docker without needing sudo.</p>
+  
+    <h4>Playbook Example</h4>
+    <pre style="text-align: left; background-color: #f4f4f4; padding: 10px;">
+  - name: Add user to Docker group
+    hosts: server
+    become: yes
+    tasks:
+      - name: Ensure Docker group exists
+        group:
+          name: docker
+          state: present
+  
+      - name: Add myadmin user to Docker group
+        user:
+          name: myadmin
+          group: docker
+          append: yes
+  
+      - name: Verify user is in Docker group
+        command: id -nG myadmin
+        register: user_groups
+  
+      - name: Show user's groups
+        debug:
+          msg: "User myadmin is in the following groups: {{ user_groups.stdout }}"
+    </pre>
+  
+    <p>This playbook includes the following tasks:</p>
+    <ul>
+      <li><strong>Ensure Docker group exists:</strong> The playbook ensures that the Docker group is present on the system.</li>
+      <li><strong>Add myadmin user to Docker group:</strong> Adds the specified user (in this case, "myadmin") to the Docker group.</li>
+      <li><strong>Verify user is in Docker group:</strong> Uses the <code>id</code> command to check the groups the user is a member of.</li>
+      <li><strong>Show user's groups:</strong> Displays the groups the user belongs to, confirming the addition to the Docker group.</li>
+    </ul>
+  
+    <h3>Running the Playbook</h3>
+    <p>To run this playbook, save it as <code>add_user_to_docker.yml</code> and run the following command:</p>
+    <pre style="text-align: left; background-color: #f4f4f4; padding: 10px;">
+  ansible-playbook -i hosts add_user_to_docker.yml
+    </pre>
+    <p>Replace <code>hosts</code> with your Ansible inventory file that defines the target machines (servers) for the playbook.</p>
+  
+  </div>
+  
+  
+
+
+  <!-- The Team -->
+
+
+
+
+
+  
+  <!-- Contact -->
+<!-- Include Font Awesome (add this inside the <head> tag of your HTML file) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  
+  
+  
+  
+
+<!-- End page content -->
+</div>
+
+<!-- W3.CSS Container -->
+<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">X</a></p></div>
+
+<script>
+// Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+</script>
+
+</body>
+</html>
