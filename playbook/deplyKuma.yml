@@ -1,0 +1,35 @@
+---
+- name: Create volume and run the uptime-kuma Docker container on server-B2
+  hosts: server-B2
+  become: yes
+  tasks:
+    - name: Start Docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Create Docker volume
+      docker_volume:
+        name: uptime-kuma
+        state: present
+
+    - name: Pull uptime-kuma Docker image
+      docker_image:
+        name: louislam/uptime-kuma
+        tag: 1
+        source: pull
+
+    - name: Run uptime-kuma Docker container
+      docker_container:
+        name: uptime-kuma
+        image: louislam/uptime-kuma:1
+        state: started
+        restart_policy: always
+        ports:
+          - "0.0.0.0:3001:3001"
+        volumes:
+          - uptime-kuma:/app/data
+
+    - name: Echo completion message
+      command: echo "http://104.46.51.222:3001"

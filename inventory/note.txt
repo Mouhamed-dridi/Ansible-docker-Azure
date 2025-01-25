@@ -1,0 +1,6 @@
+ befor run firts ping go and add Manually Add the Host Keys
+
+ ssh myadmin@10.103.0.5
+
+ssh myadmin@10.103.0.6
+

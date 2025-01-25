@@ -1,0 +1,9 @@
+create web app in server1
+mv index html to server1
+build image use thus html file to make web server1
+run int conatner
+
+
+
+
+build all in terrfrome

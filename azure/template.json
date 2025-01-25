@@ -1,0 +1,96 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachines_mangament_server_name": {
+            "defaultValue": "mangament-server",
+            "type": "String"
+        },
+        "disks_mangament_server_disk1_e1dd5d2e292b40a6bca099799b5a8df5_externalid": {
+            "defaultValue": "/subscriptions/0cb12691-4f8e-4a66-abab-4481e2f0517e/resourceGroups/ansible-lab/providers/Microsoft.Compute/disks/mangament-server_disk1_e1dd5d2e292b40a6bca099799b5a8df5",
+            "type": "String"
+        },
+        "networkInterfaces_mangament_server652_externalid": {
+            "defaultValue": "/subscriptions/0cb12691-4f8e-4a66-abab-4481e2f0517e/resourceGroups/ansible-lab/providers/Microsoft.Network/networkInterfaces/mangament-server652",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2024-07-01",
+            "name": "[parameters('virtualMachines_mangament_server_name')]",
+            "location": "westeurope",
+            "tags": {
+                "creater": "mohamed-dridi",
+                "used-for": "terminal-server"
+            },
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_D2s_v3"
+                },
+                "additionalCapabilities": {
+                    "hibernationEnabled": false
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "canonical",
+                        "offer": "ubuntu-24_04-lts",
+                        "sku": "server",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "osType": "Linux",
+                        "name": "[concat(parameters('virtualMachines_mangament_server_name'), '_disk1_e1dd5d2e292b40a6bca099799b5a8df5')]",
+                        "createOption": "FromImage",
+                        "caching": "ReadWrite",
+                        "managedDisk": {
+                            "id": "[parameters('disks_mangament_server_disk1_e1dd5d2e292b40a6bca099799b5a8df5_externalid')]"
+                        },
+                        "deleteOption": "Delete"
+                    },
+                    "dataDisks": [],
+                    "diskControllerType": "SCSI"
+                },
+                "osProfile": {
+                    "computerName": "[parameters('virtualMachines_mangament_server_name')]",
+                    "adminUsername": "myadmin",
+                    "linuxConfiguration": {
+                        "disablePasswordAuthentication": false,
+                        "provisionVMAgent": true,
+                        "patchSettings": {
+                            "patchMode": "ImageDefault",
+                            "assessmentMode": "ImageDefault"
+                        }
+                    },
+                    "secrets": [],
+                    "allowExtensionOperations": true,
+                    "requireGuestProvisionSignal": true
+                },
+                "securityProfile": {
+                    "uefiSettings": {
+                        "secureBootEnabled": true,
+                        "vTpmEnabled": true
+                    },
+                    "securityType": "TrustedLaunch"
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[parameters('networkInterfaces_mangament_server652_externalid')]",
+                            "properties": {
+                                "deleteOption": "Detach"
+                            }
+                        }
+                    ]
+                },
+                "diagnosticsProfile": {
+                    "bootDiagnostics": {
+                        "enabled": true
+                    }
+                }
+            }
+        }
+    ]
+}

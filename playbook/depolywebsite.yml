@@ -1,0 +1,36 @@
+---
+- name: Deploy the startup website from GitHub
+  hosts: server-B2
+  become: yes
+  tasks:
+    - name: Install Docker
+      apt:
+        name: docker.io
+        state: present
+        update_cache: yes
+    
+    - name: Start Docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Pull repository from GitHub
+      git:
+        repo: 'https://github.com/Mouhamed-dridi/startupWebSite'
+        dest: /opt/startupWebSite
+
+    - name: Build Docker image
+      command: docker build -t startup_website /opt/startupWebSite
+
+    - name: Run Docker container
+      docker_container:
+        name: startup_website
+        image: startup_website
+        state: started
+        restart_policy: always
+        ports:
+          - "80:80"  # Adjust the port mapping as needed
+
+    - name: Echo completion message
+      command: echo "Startup website is running at http://104.46.51.222"

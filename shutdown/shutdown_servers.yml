@@ -1,0 +1,10 @@
+---
+- name: Shutdown Servers
+  hosts: all  # Specify the target group or server
+  become: true
+  tasks:
+    - name: Notify about server shutdown
+      ansible.builtin.shell: echo "Server is going to shut down in 1 minute!"
+    
+    - name: Shutdown the server
+      command: shutdown -h +1 "System is shutting down. Please save your work."

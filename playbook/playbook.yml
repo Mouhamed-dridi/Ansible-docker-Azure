@@ -1,0 +1,38 @@
+---
+- name: Copy Dockerfile, Build, and Run Docker Image with Ansible
+  hosts: server-A1
+  become: yes
+  tasks:
+    - name: Create directory for Dockerfile
+      file:
+        path: /home/myadmin/server-A1
+        state: directory
+        mode: '0755'
+
+    - name: Copy Dockerfile to the target host
+      copy:
+        src: /home/myadmin/dockerfile
+        dest: /home/myadmin/server-A1/Dockerfile
+        mode: '0644'
+
+    - name: Build Docker image
+      command: docker build -t website-image /home/myadmin/server-A1/
+      args:
+        chdir: /home/myadmin/server-A1
+
+    - name: Run Docker container
+      docker_container:
+        name: website-container
+        image: website-image
+        state: started
+        ports:
+          - "80:80"
+
+    - name: Verify the container is running
+      command: docker inspect -f '{{.State.Running}}' website-container
+      register: container_running
+
+    - name: Fail if container is not running
+      fail:
+        msg: "Website container is not running"
+      when: container_running.stdout != "true"

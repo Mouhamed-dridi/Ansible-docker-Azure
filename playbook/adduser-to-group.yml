@@ -1,0 +1,23 @@
+---
+- name: Add user to Docker group
+  hosts: server
+  become: yes
+  tasks:
+    - name: Ensure Docker group exists
+      group:
+        name: docker
+        state: present
+
+    - name: Add myadmin user to Docker group
+      user:
+        name: myadmin
+        group: docker
+        append: yes
+
+    - name: Verify user is in Docker group
+      command: id -nG myadmin
+      register: user_groups
+
+    - name: Show user's groups
+      debug:
+        msg: "User myadmin is in the following groups: {{ user_groups.stdout }}"
