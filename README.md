@@ -1,63 +1,79 @@
 # Ansible-Docker-Azure
 
-This project demonstrates how to use Ansible to manage Docker containers and deploy a web application solution, all running in the Azure cloud.  It provides a streamlined and automated approach to deploying and managing your web apps.
+This project automates the deployment of a three-VM solution in the Azure cloud, including a web application, monitoring tools, and their configuration, all managed by Ansible. 🚀
 
 ## Description
 
-This project simplifies the process of deploying web applications to Azure by leveraging the power of Ansible for orchestration and Docker for containerization.  It automates the creation of necessary Azure resources, sets up Docker on the virtual machines, builds and manages Docker images, and deploys the web application.
+This project simplifies the deployment of a web application and its monitoring infrastructure on Azure. It uses Ansible to orchestrate the creation and configuration of three virtual machines: one hosting the web application, another running the Kuma monitoring solution, and a third management server.  This setup provides a complete and easily manageable cloud-based solution. 🐳
 
 ## Installation
 
 1. **Prerequisites:**
-    * An Azure subscription.
-    * Ansible installed on your local machine.
-    * Azure CLI installed and configured.
-    * Docker installed on your local machine (for building images).
+    * An Azure subscription. ☁️
+    * Your local machine with:
+        * Azure CLI installed and configured. 💻
+        * Git (for cloning the repository). 📂
 
 2. **Set up the Azure Environment:**
     * Create three virtual machines in Azure:
-        * **Machine 1 (Management Server):** This server will be used to access and manage the other two servers.
-        * **Machine 2 (Web Server):** This server will host the web application.
-        * **Machine 3 (Monitoring Server):** This server will host the application monitoring tools.
+        * **Machine 1 (Management Server):** This server will be used to access and manage the other two servers. ⚙️
+        * **Machine 2 (Web Server):** This server will host the web application. 🌐
+        * **Machine 3 (Monitoring Server):** This server will host the Kuma monitoring solution. 📈
+    * You can use the provided Azure deployment scripts located in the `azure` folder of the repository to automate the creation of the Azure infrastructure.  Clone the repository first (see below).
 
-3. **Install Ansible:**
-    * Install Ansible on the Management Server.
-
-4. **Install Docker:**
-    * Install Docker on the Web Server (Machine 2).
-    * Install Docker on the Monitoring Server (Machine 3).
-
-5. **Install Ansible Collections:**
+3. **Clone the Repository:**
     ```bash
-    ansible-galaxy collection install azure.azcollection
-    ansible-galaxy collection install community.docker
+    git clone https://github.com/Mouhamed-dridi/Ansible-docker-Azure
     ```
+
+4. **Install Ansible on the Management Server:**
+    ```bash
+    #!/bin/bash
+
+    # Bash script to install Ansible on Linux
+
+    # Update package list
+    echo "Updating package list..."
+    sudo apt update -y
+
+    # Install software-properties-common
+    echo "Installing software-properties-common..."
+    sudo apt install -y software-properties-common
+
+    # Add Ansible PPA
+    echo "Adding Ansible PPA..."
+    sudo add-apt-repository --yes --update ppa:ansible/ansible
+
+    # Install Ansible
+    echo "Installing Ansible..."
+    sudo apt install -y ansible
+
+    # Verify installation
+    echo "Ansible installation completed. Verifying version..."
+    ansible --version
+
+    echo "Ansible is now installed and ready to use!"
+    ```
+    * Save this script as `install_ansible.sh` on your Management Server and make it executable: `chmod +x install_ansible.sh`
+    * Run the script: `./install_ansible.sh`
+
+5. **Docker Installation:**
+    * Docker will be installed on the Web Server (Machine 2) and the Monitoring Server (Machine 3) using Ansible playbooks located in the `ansible/playbook` folder.  See the "Usage" section for details. 🐳
 
 ## Usage
 
-1. **Customize Variables:**
-    * Modify the `vars.yml` file to configure your deployment settings, such as:
-        * Resource group name
-        * Location for resources
-        * Virtual machine sizes
-        * Docker image name and tag
-        * Web application port
-        * Monitoring tools to install
+1. **Run the Ansible Playbooks:**
+   The `ansible/playbook` folder, will handle setting up the Azure infrastructure (if configured), installing Docker on the necessary VMs, deploying the web application, and configuring the Kuma monitoring solution.  All deployment configurations are within this folder.
 
-2. **Run the Ansible playbook:**
-    ```bash
-    ansible-playbook deploy.yml
-    ```
+## Learning More About Uptime Kuma
+
+* **Tutorial Video:** <a href="https://youtu.be/DbF96IHOZig?si=YEt30V27H9byW--g" target="_blank"> with NetworkChuck
+* **Uptime Kuma GitHub Repository:** [https://github.com/louislam/uptime-kuma](https://github.com/louislam/uptime-kuma)
+
 
 ## Contributing
 
-Contributions are welcome!  Please open a pull request with your changes.  See the `CONTRIBUTING.md` file for more details.
-
+Contributions are welcome!  Please open a pull request with your changes.  See the `CONTRIBUTING.md` file for more details. 🤝
 
 ## Contact
-
-[Your contact information, e.g., email address]
-
-## Acknowledgements
-
-[Any acknowledgements, e.g., libraries used]
+<a href="https://www.linkedin.com/in/mohamed-dridi-networking/" target="_blank"> 🔗 LinkedIn: Connect with me! </a>
